@@ -1,0 +1,169 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #0E0327;
+  color: #ffffff;
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── Fonts ──────────────────────────────── */
+.font-display  { font-family: 'Cormorant Garamond', Georgia, serif; }
+.font-cinzel   { font-family: 'Cinzel', serif; }
+
+/* ─── SVG draw animation ─────────────────── */
+.svg-draw {
+  stroke-dasharray: 2000;
+  stroke-dashoffset: 2000;
+  animation: svgDraw 3s ease-out forwards;
+}
+.svg-draw-fast {
+  stroke-dasharray: 500;
+  stroke-dashoffset: 500;
+  animation: svgDraw 1.5s ease-out forwards;
+}
+@keyframes svgDraw {
+  to { stroke-dashoffset: 0; }
+}
+
+/* ─── Gold gradient text ─────────────────── */
+.text-gold-gradient {
+  background: linear-gradient(135deg, #9a7428 0%, #C69A49 45%, #e8b96a 70%, #AE8532 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─── Horizontal line draw ───────────────── */
+.line-expand {
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.line-expand.active {
+  transform: scaleX(1);
+}
+
+/* ─── Staggered fade-up entries ─────────── */
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+.fade-up {
+  opacity: 0;
+  animation: fadeSlideUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ─── Logo glow pulse ────────────────────── */
+@keyframes logoPulse {
+  0%, 100% { filter: drop-shadow(0 0 14px rgba(174,133,50,0.15)); }
+  50%       { filter: drop-shadow(0 0 28px rgba(174,133,50,0.35)); }
+}
+.logo-pulse {
+  animation: logoPulse 4s ease-in-out infinite;
+}
+
+/* ─── Slow rotating background orb ──────── */
+@keyframes orbRotate {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+.orb-rotate {
+  animation: orbRotate 60s linear infinite;
+}
+
+/* ─── Vertical scan line ─────────────────── */
+@keyframes scanLine {
+  0%   { left: -2px; opacity: 0; }
+  5%   { opacity: 1; }
+  95%  { opacity: 1; }
+  100% { left: 100%; opacity: 0; }
+}
+.scan-line {
+  animation: scanLine 5s ease-in-out infinite;
+  animation-delay: 2s;
+}
+
+/* ─── Language switcher active pill ──────── */
+.lang-active {
+  background: linear-gradient(135deg, rgba(174,133,50,0.2), rgba(198,154,73,0.1));
+  border-color: rgba(174,133,50,0.7) !important;
+  color: #C69A49 !important;
+}
+
+/* ─── RTL ─────────────────────────────────── */
+.rtl {
+  direction: rtl;
+  text-align: right;
+}
+
+/* ─── Scrollbar ───────────────────────────── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #0E0327; }
+::-webkit-scrollbar-thumb { background: #AE8532; border-radius: 2px; }
+
+/* ─── Intersection reveals (for main site) ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-left  { opacity: 0; transform: translateX(-40px); transition: opacity 0.8s ease, transform 0.8s ease; }
+.reveal-left.visible  { opacity: 1; transform: translateX(0); }
+.reveal-right { opacity: 0; transform: translateX(40px);  transition: opacity 0.8s ease, transform 0.8s ease; }
+.reveal-right.visible { opacity: 1; transform: translateX(0); }
+
+/* ─── Gold glow box ──────────────────────── */
+.gold-glow {
+  box-shadow: 0 0 24px rgba(174,133,50,0.25), 0 0 60px rgba(174,133,50,0.08);
+}
+
+/* ─── Nav glass ──────────────────────────── */
+.nav-glass {
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+/* ─── Shimmer cards ──────────────────────── */
+.shimmer-card {
+  background: linear-gradient(90deg,
+    rgba(174,133,50,0.04) 0%,
+    rgba(174,133,50,0.10) 50%,
+    rgba(174,133,50,0.04) 100%);
+  background-size: 800px 100%;
+  animation: shimmer 2.5s linear infinite;
+}
+@keyframes shimmer {
+  0%   { background-position: -800px 0; }
+  100% { background-position:  800px 0; }
+}
+
+/* ─── Blueprint grid ──────────────────────── */
+.blueprint-grid {
+  background-image:
+    linear-gradient(rgba(174,133,50,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(174,133,50,0.05) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* ─── Marquee ─────────────────────────────── */
+@keyframes marquee {
+  0%   { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
