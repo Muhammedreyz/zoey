@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zoey İnşaat – Yakında</title>
+  <meta name="description" content="Zoey İnşaat yeni web sitesi çok yakında." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Cinzel:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      min-height: 100vh;
+      background: radial-gradient(ellipse 120% 100% at 50% -10%, #1a0a3d 0%, #0E0327 55%, #070115 100%);
+      color: #fff;
+      font-family: 'Cinzel', serif;
+      -webkit-font-smoothing: antialiased;
+      overflow: hidden;
+      user-select: none;
+    }
+
+    #app {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .orb {
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 90vmin; height: 90vmin;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, rgba(174,133,50,0.055) 0%, transparent 65%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .geo-ring {
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 80vmin; height: 80vmin;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      animation: orbRotate 60s linear infinite;
+    }
+    .geo-ring svg { width: 100%; height: 100%; opacity: 0.06; }
+
+    .scan-line {
+      position: absolute;
+      top: 0; bottom: 0; width: 1px;
+      background: linear-gradient(to bottom, transparent, rgba(174,133,50,0.4), transparent);
+      pointer-events: none;
+      animation: scanLine 5s ease-in-out infinite 2s;
+    }
+
+    .border-top { position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(174,133,50,0.6) 50%, transparent); }
+    .border-bot { position: absolute; bottom: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(174,133,50,0.3) 50%, transparent); }
+
+    .corner { position: absolute; width: 32px; height: 32px; pointer-events: none; opacity: 0.3; border-color: #AE8532; border-style: solid; }
+    .corner-tl { top: 20px; left: 20px;   border-width: 1px 0 0 1px; }
+    .corner-tr { top: 20px; right: 20px;  border-width: 1px 1px 0 0; }
+    .corner-bl { bottom: 20px; left: 20px;  border-width: 0 0 1px 1px; }
+    .corner-br { bottom: 20px; right: 20px; border-width: 0 1px 1px 0; }
+
+    #lang-switcher { position: absolute; top: 24px; right: 24px; z-index: 20; display: flex; gap: 6px; }
+    .lang-btn {
+      padding: 4px 10px;
+      font-family: 'Cinzel', serif;
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: transparent;
+      color: rgba(255,255,255,0.3);
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .lang-btn:hover { border-color: rgba(174,133,50,0.3); color: rgba(255,255,255,0.6); }
+    .lang-btn.active {
+      background: linear-gradient(135deg, rgba(174,133,50,0.2), rgba(198,154,73,0.1));
+      border-color: rgba(174,133,50,0.7) !important;
+      color: #C69A49 !important;
+    }
+
+    .main-content {
+      position: relative; z-index: 10;
+      display: flex; flex-direction: column;
+      align-items: center; text-align: center;
+      padding: 0 24px; width: 100%; max-width: 640px;
+    }
+
+    #logo-wrap {
+      opacity: 0;
+      transform: translateY(-16px) scale(0.96);
+      transition: opacity 1s cubic-bezier(0.16,1,0.3,1), transform 1s cubic-bezier(0.16,1,0.3,1);
+    }
+    #logo-wrap.visible { opacity: 1; transform: translateY(0) scale(1); }
+    #logo-img { width: min(340px, 72vw); height: auto; animation: logoPulse 4s ease-in-out infinite; }
+
+    .divider {
+      position: relative; margin: 40px 0;
+      width: 100%; max-width: 320px;
+      display: flex; align-items: center; gap: 16px;
+    }
+    .line-expand {
+      flex: 1; height: 1px;
+      background: linear-gradient(90deg, transparent, #AE8532 40%, #C69A49, #AE8532 60%, transparent);
+      transform: scaleX(0); transform-origin: center;
+      transition: transform 1.2s cubic-bezier(0.16,1,0.3,1);
+    }
+    .line-expand.active { transform: scaleX(1); }
+    .diamond-center { flex-shrink: 0; opacity: 0; transition: opacity 0.6s ease 0.4s; }
+    .diamond-center.visible { opacity: 1; }
+
+    #text-block { width: 100%; transition: opacity 0.28s ease; }
+    #text-block.rtl { direction: rtl; text-align: right; }
+
+    #eyebrow {
+      font-family: 'Cinzel', serif; font-size: 10px;
+      letter-spacing: 0.45em; color: rgba(174,133,50,0.5);
+      text-transform: uppercase;
+      opacity: 0; transform: translateY(16px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    #eyebrow.visible { opacity: 1; transform: translateY(0); }
+
+    #headline-wrap {
+      opacity: 0; transform: translateY(24px);
+      transition: opacity 0.9s ease 0.1s, transform 0.9s ease 0.1s;
+    }
+    #headline-wrap.visible { opacity: 1; transform: translateY(0); }
+
+    #headline {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: clamp(2.6rem, 8vw, 5.5rem);
+      font-weight: 300; line-height: 1; margin-top: 16px;
+    }
+    #headline .line1 { display: block; color: rgba(255,255,255,0.9); }
+    #headline .line2 {
+      display: block; font-style: italic; font-weight: 400; margin-top: 0.05em;
+      background: linear-gradient(135deg, #9a7428 0%, #C69A49 45%, #e8b96a 70%, #AE8532 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+
+    #sub-wrap {
+      opacity: 0; transform: translateY(16px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    #sub-wrap.visible { opacity: 1; transform: translateY(0); }
+    #sub-text {
+      margin-top: 28px;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.125rem; color: rgba(255,255,255,0.4);
+      font-weight: 300; letter-spacing: 0.03em; line-height: 1.6; font-style: italic;
+    }
+
+    #divider2 {
+      margin-top: 40px; width: 128px; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(174,133,50,0.4), transparent);
+      opacity: 0; transition: opacity 0.8s ease 0.2s;
+    }
+    #divider2.visible { opacity: 1; }
+
+    #contact {
+      margin-top: 32px; display: flex; flex-direction: column; align-items: center; gap: 20px;
+      opacity: 0; transform: translateY(12px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    #contact.visible { opacity: 1; transform: translateY(0); }
+    @media (min-width: 640px) { #contact { flex-direction: row; gap: 40px; } }
+
+    .contact-link {
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none; color: rgba(255,255,255,0.45); transition: color 0.3s;
+    }
+    .contact-link:hover { color: #C69A49; }
+    .contact-link:hover .contact-icon { border-color: rgba(174,133,50,0.6); }
+    .contact-icon {
+      width: 28px; height: 28px; border-radius: 50%;
+      border: 1px solid rgba(174,133,50,0.25);
+      display: flex; align-items: center; justify-content: center;
+      color: #AE8532; flex-shrink: 0; transition: border-color 0.3s;
+    }
+    .contact-icon svg { width: 12px; height: 12px; }
+    .contact-label { font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 0.12em; }
+    .contact-sep { display: none; width: 1px; height: 24px; background: rgba(255,255,255,0.1); }
+    @media (min-width: 640px) { .contact-sep { display: block; } }
+
+    #watermark {
+      position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
+      font-family: 'Cinzel', serif; font-size: 9px;
+      letter-spacing: 0.6em; color: rgba(255,255,255,0.12);
+      text-transform: uppercase; white-space: nowrap;
+    }
+
+    .particle { position: absolute; border-radius: 50%; background: #AE8532; pointer-events: none; }
+
+    @keyframes logoPulse {
+      0%, 100% { filter: drop-shadow(0 0 14px rgba(174,133,50,0.15)); }
+      50%       { filter: drop-shadow(0 0 28px rgba(174,133,50,0.35)); }
+    }
+    @keyframes orbRotate {
+      from { transform: translate(-50%,-50%) rotate(0deg); }
+      to   { transform: translate(-50%,-50%) rotate(360deg); }
+    }
+    @keyframes scanLine {
+      0%   { left: -2px; opacity: 0; }
+      5%   { opacity: 1; }
+      95%  { opacity: 1; }
+      100% { left: 100%; opacity: 0; }
+    }
+    @keyframes particlePulse {
+      0%, 100% { opacity: var(--op-min); }
+      50%       { opacity: var(--op-max); }
+    }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: #0E0327; }
+    ::-webkit-scrollbar-thumb { background: #AE8532; border-radius: 2px; }
+  </style>
+</head>
+<body>
+<div id="app">
+  <div class="orb"></div>
+
+  <div class="geo-ring">
+    <svg viewBox="0 0 400 400" fill="none">
+      <circle cx="200" cy="200" r="195" stroke="#AE8532" stroke-width="0.6" stroke-dasharray="8 12"/>
+      <circle cx="200" cy="200" r="170" stroke="#AE8532" stroke-width="0.3"/>
+      <line x1="5" y1="200" x2="395" y2="200" stroke="#AE8532" stroke-width="0.4"/>
+      <line x1="200" y1="5" x2="200" y2="395" stroke="#AE8532" stroke-width="0.4"/>
+      <line x1="62" y1="62" x2="338" y2="338" stroke="#AE8532" stroke-width="0.3" stroke-dasharray="4 8"/>
+      <line x1="338" y1="62" x2="62" y2="338" stroke="#AE8532" stroke-width="0.3" stroke-dasharray="4 8"/>
+      <polygon points="200,30 370,140 370,260 200,370 30,260 30,140" stroke="#AE8532" stroke-width="0.4" fill="none"/>
+    </svg>
+  </div>
+
+  <div id="particles"></div>
+  <div class="scan-line"></div>
+  <div class="border-top"></div>
+  <div class="border-bot"></div>
+  <div class="corner corner-tl"></div>
+  <div class="corner corner-tr"></div>
+  <div class="corner corner-bl"></div>
+  <div class="corner corner-br"></div>
+
+  <div id="lang-switcher">
+    <button class="lang-btn active" data-lang="tr">TR</button>
+    <button class="lang-btn" data-lang="de">DE</button>
+    <button class="lang-btn" data-lang="en">EN</button>
+    <button class="lang-btn" data-lang="ru">RU</button>
+    <button class="lang-btn" data-lang="ar">AR</button>
+  </div>
+
+  <div class="main-content">
+    <div id="logo-wrap">
+      <img id="logo-img" src="beyaz_yazi.svg" alt="Zoey İnşaat" />
+    </div>
+
+    <div class="divider">
+      <div class="line-expand" id="line-left"></div>
+      <div class="diamond-center" id="diamond">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+          <rect x="1" y="1" width="10" height="10" transform="rotate(45 6 6)" fill="#AE8532"/>
+        </svg>
+      </div>
+      <div class="line-expand" id="line-right"></div>
+    </div>
+
+    <div id="text-block">
+      <div id="eyebrow"></div>
+      <div id="headline-wrap">
+        <h1 id="headline">
+          <span class="line1"></span>
+          <span class="line2"></span>
+        </h1>
+      </div>
+      <div id="sub-wrap">
+        <p id="sub-text"></p>
+      </div>
+    </div>
+
+    <div id="divider2"></div>
+
+    <div id="contact">
+      <a href="tel:+905306374169" class="contact-link">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 01.18 2.18 2 2 0 012.18 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.72 6.72l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
+          </svg>
+        </div>
+        <span class="contact-label">+90 530 637 41 69</span>
+      </a>
+      <div class="contact-sep"></div>
+      <a href="mailto:info@zoey.com.tr" class="contact-link">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+            <polyline points="22,6 12,13 2,6"/>
+          </svg>
+        </div>
+        <span class="contact-label">info@zoey.com.tr</span>
+      </a>
+    </div>
+  </div>
+
+  <div id="watermark"></div>
+</div>
+
+<script>
+  var T = {
+    tr: { eyebrow: 'Bakım Modu',                    line1: 'Yeni Web Sitemiz',  line2: 'Çok Yakında',        sub: 'Sizi daha iyi karşılamak için çalışmalarımız sürüyor.', soon: 'Yakında' },
+    de: { eyebrow: 'Wartungsmodus',                  line1: 'Unsere neue Website', line2: 'Kommt Bald',       sub: 'Wir arbeiten daran, Sie besser zu empfangen.',           soon: 'Demnächst' },
+    en: { eyebrow: 'Maintenance Mode',               line1: 'Our New Website',   line2: 'Coming Soon',        sub: 'We are working hard to welcome you better.',             soon: 'Coming Soon' },
+    ru: { eyebrow: 'Техническое обслуживание',       line1: 'Наш новый сайт',    line2: 'Скоро Открывается', sub: 'Мы работаем над тем, чтобы встретить вас лучше.',       soon: 'Скоро' },
+    ar: { eyebrow: 'وضع الصيانة',                   line1: 'موقعنا الجديد',     line2: 'قادم قريباً',        sub: 'نعمل بجد لنستقبلكم بشكل أفضل.',                        soon: 'قريباً' }
+  };
+
+  var currentLang = 'en';
+
+  function detectLang() {
+    var l = (navigator.language || 'en').toLowerCase().split('-')[0];
+    if (l === 'tr') return 'tr';
+    if (l === 'de') return 'de';
+    if (l === 'ru') return 'ru';
+    if (l === 'ar') return 'ar';
+    return 'en';
+  }
+
+  function applyLang(lang, animate) {
+    var t = T[lang];
+    var block = document.getElementById('text-block');
+
+    function set() {
+      document.getElementById('eyebrow').textContent = t.eyebrow;
+      document.querySelector('#headline .line1').textContent = t.line1;
+      document.querySelector('#headline .line2').textContent = t.line2;
+      document.getElementById('sub-text').textContent = t.sub;
+      document.getElementById('watermark').innerHTML = t.soon + ' &nbsp;&middot;&nbsp; Zoey İnşaat';
+      if (lang === 'ar') { block.classList.add('rtl'); } else { block.classList.remove('rtl'); }
+      if (animate) block.style.opacity = '1';
+    }
+
+    if (animate) {
+      block.style.opacity = '0';
+      setTimeout(set, 280);
+    } else {
+      set();
+    }
+
+    var btns = document.querySelectorAll('.lang-btn');
+    for (var i = 0; i < btns.length; i++) {
+      if (btns[i].getAttribute('data-lang') === lang) {
+        btns[i].classList.add('active');
+      } else {
+        btns[i].classList.remove('active');
+      }
+    }
+    currentLang = lang;
+  }
+
+  var btns = document.querySelectorAll('.lang-btn');
+  for (var i = 0; i < btns.length; i++) {
+    (function(btn) {
+      btn.addEventListener('click', function() {
+        if (btn.getAttribute('data-lang') !== currentLang) {
+          applyLang(btn.getAttribute('data-lang'), true);
+        }
+      });
+    })(btns[i]);
+  }
+
+  // Particles
+  (function() {
+    var container = document.getElementById('particles');
+    for (var i = 0; i < 40; i++) {
+      var d = document.createElement('div');
+      d.className = 'particle';
+      var x = Math.random() * 100;
+      var y = Math.random() * 100;
+      var size = Math.random() * 2 + 1;
+      var dur = Math.random() * 8 + 6;
+      var delay = Math.random() * 6;
+      var opMin = (Math.random() * 0.15 + 0.03).toFixed(3);
+      var opMax = (parseFloat(opMin) + 0.15).toFixed(3);
+      d.style.cssText = 'left:' + x + '%;top:' + y + '%;width:' + size + 'px;height:' + size + 'px;--op-min:' + opMin + ';--op-max:' + opMax + ';opacity:' + opMin + ';animation:particlePulse ' + dur + 's ease-in-out ' + delay + 's infinite alternate;';
+      container.appendChild(d);
+    }
+  })();
+
+  currentLang = detectLang();
+  applyLang(currentLang, false);
+
+  // Update active button to match detected language
+  var allBtns = document.querySelectorAll('.lang-btn');
+  for (var j = 0; j < allBtns.length; j++) {
+    if (allBtns[j].getAttribute('data-lang') === currentLang) {
+      allBtns[j].classList.add('active');
+    } else {
+      allBtns[j].classList.remove('active');
+    }
+  }
+
+  setTimeout(function() { document.getElementById('logo-wrap').classList.add('visible'); }, 200);
+  setTimeout(function() {
+    document.getElementById('line-left').classList.add('active');
+    setTimeout(function() { document.getElementById('line-right').classList.add('active'); }, 150);
+  }, 700);
+  setTimeout(function() { document.getElementById('diamond').classList.add('visible'); }, 900);
+  setTimeout(function() {
+    document.getElementById('eyebrow').classList.add('visible');
+    document.getElementById('headline-wrap').classList.add('visible');
+  }, 1300);
+  setTimeout(function() {
+    document.getElementById('sub-wrap').classList.add('visible');
+    document.getElementById('divider2').classList.add('visible');
+  }, 1800);
+  setTimeout(function() { document.getElementById('contact').classList.add('visible'); }, 2200);
+</script>
+</body>
+</html>
