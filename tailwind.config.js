@@ -15,6 +15,7 @@ export default {
       },
       fontFamily: {
         display: ['Cormorant Garamond', 'Georgia', 'serif'],
+        heading: ['Playfair Display', 'Georgia', 'serif'],
         cinzel: ['Cinzel', 'serif'],
         serif: ['Cormorant Garamond', 'Georgia', 'serif'],
         sans: ['Inter', 'system-ui', 'sans-serif'],

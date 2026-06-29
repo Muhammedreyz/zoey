@@ -28,8 +28,7 @@ export default function WhyZoey() {
             {t.whyZoey.tag}
           </span>
           <h2
-            className="text-4xl md:text-5xl font-bold text-white leading-tight"
-            style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
+            className="text-4xl md:text-5xl font-bold text-white leading-tight font-heading"
           >
             {t.whyZoey.h1}<br />
             <span className="text-gold-gradient">{t.whyZoey.h2}</span>
@@ -57,8 +56,7 @@ export default function WhyZoey() {
               style={{ transitionDelay: `${i * 150}ms` }}
             >
               <div
-                className="text-6xl font-bold text-brand-gold/8 group-hover:text-brand-gold/15 transition-colors duration-500 mb-5 leading-none"
-                style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
+                className="text-6xl font-bold text-brand-gold/8 group-hover:text-brand-gold/15 transition-colors duration-500 mb-5 leading-none font-heading"
               >
                 0{i + 1}
               </div>

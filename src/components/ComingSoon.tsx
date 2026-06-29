@@ -186,7 +186,7 @@ export default function ComingSoon() {
             className={`px-2.5 py-1 text-[10px] tracking-widest font-cinzel border transition-all duration-300 ${
               lang === code
                 ? 'lang-active border-brand-gold/60 text-brand-gold-light'
-                : 'border-white/10 text-white/30 hover:border-brand-gold/30 hover:text-white/60'
+                : 'border-brand-gold/10 text-white/30 hover:border-brand-gold/30 hover:text-white/60'
             }`}
           >
             {LANG_LABELS[code]}

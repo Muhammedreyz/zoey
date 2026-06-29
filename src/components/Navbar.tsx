@@ -125,7 +125,7 @@ export default function Navbar({ onShowComingSoon }: NavProps) {
                 className={`px-3 py-1.5 text-[10px] tracking-widest font-cinzel transition-all duration-300 ${
                   lang === code
                     ? 'text-brand-gold border border-brand-gold/50 bg-brand-gold/10'
-                    : 'text-white/30 border border-white/10 hover:text-white/50'
+                    : 'text-white/30 border border-brand-gold/10 hover:text-white/50'
                 }`}
               >
                 {LANG_LABELS[code]}

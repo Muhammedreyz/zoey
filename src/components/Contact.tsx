@@ -40,15 +40,14 @@ export default function Contact() {
               {t.contact.tag}
             </span>
             <h2
-              className="text-4xl md:text-5xl font-bold text-white leading-tight mb-8"
-              style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
+              className="text-4xl md:text-5xl font-bold text-white leading-tight mb-8 font-heading"
             >
               {t.contact.h1}<br />
               <span className="text-gold-gradient">{t.contact.h2}</span>
             </h2>
             <div className="w-16 h-px bg-gradient-to-r from-brand-gold to-transparent mb-10" />
 
-            <p className="text-white/45 text-lg font-light leading-relaxed mb-12" style={{ fontFamily: "'Cormorant Garamond', Georgia, serif" }}>
+            <p className="text-white/45 text-lg font-light leading-relaxed mb-12 font-display">
               {t.contact.sub}
             </p>
 
@@ -81,7 +80,7 @@ export default function Contact() {
                 <div className="w-16 h-16 border border-brand-gold/30 flex items-center justify-center mb-6">
                   <CheckCircle size={28} className="text-brand-gold" />
                 </div>
-                <h3 className="text-white text-2xl font-semibold mb-3" style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
+                <h3 className="text-white text-2xl font-semibold mb-3 font-heading">
                   {t.contact.sent}
                 </h3>
                 <p className="text-white/50 font-light">{t.contact.sentSub}</p>
@@ -94,8 +93,8 @@ export default function Contact() {
                   </label>
                   <input
                     type="text" name="name" value={form.name} onChange={handleChange} required
-                    className="w-full border border-white/8 px-4 py-3.5 text-white placeholder-white/20 focus:outline-none focus:border-brand-gold/40 transition-colors duration-300 text-sm font-light"
-                    style={{ background: 'rgba(255,255,255,0.03)' }}
+                    className="w-full border border-brand-gold/10 px-4 py-3.5 text-white placeholder-white/20 focus:outline-none focus:border-brand-gold/40 transition-colors duration-300 text-sm font-light"
+                    style={{ background: 'rgba(174,133,50,0.03)' }}
                     placeholder={t.contact.formNamePh}
                   />
                 </div>
@@ -105,8 +104,8 @@ export default function Contact() {
                   </label>
                   <input
                     type="tel" name="phone" value={form.phone} onChange={handleChange}
-                    className="w-full border border-white/8 px-4 py-3.5 text-white placeholder-white/20 focus:outline-none focus:border-brand-gold/40 transition-colors duration-300 text-sm font-light"
-                    style={{ background: 'rgba(255,255,255,0.03)' }}
+                    className="w-full border border-brand-gold/10 px-4 py-3.5 text-white placeholder-white/20 focus:outline-none focus:border-brand-gold/40 transition-colors duration-300 text-sm font-light"
+                    style={{ background: 'rgba(174,133,50,0.03)' }}
                     placeholder={t.contact.formPhonePh}
                   />
                 </div>
@@ -116,8 +115,8 @@ export default function Contact() {
                   </label>
                   <textarea
                     name="message" value={form.message} onChange={handleChange} required rows={6}
-                    className="w-full border border-white/8 px-4 py-3.5 text-white placeholder-white/20 focus:outline-none focus:border-brand-gold/40 transition-colors duration-300 text-sm resize-none font-light"
-                    style={{ background: 'rgba(255,255,255,0.03)' }}
+                    className="w-full border border-brand-gold/10 px-4 py-3.5 text-white placeholder-white/20 focus:outline-none focus:border-brand-gold/40 transition-colors duration-300 text-sm resize-none font-light"
+                    style={{ background: 'rgba(174,133,50,0.03)' }}
                     placeholder={t.contact.formMsgPh}
                   />
                 </div>

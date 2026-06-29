@@ -12,7 +12,7 @@ function StatItem({ target, suffix, label, enabled }: StatProps) {
   const count = useCountUp(target, 2000, enabled);
   return (
     <div className="text-center">
-      <div className="text-4xl md:text-5xl font-bold text-brand-gold" style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
+      <div className="text-4xl md:text-5xl font-bold text-brand-gold font-heading">
         {count}{suffix}
       </div>
       <div className="text-[11px] tracking-[0.2em] text-white/40 uppercase mt-3 font-light">{label}</div>
@@ -35,8 +35,7 @@ export default function About() {
               {t.about.tag}
             </span>
             <h2
-              className="text-4xl md:text-5xl lg:text-[3.5rem] font-bold text-white leading-tight mb-8"
-              style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
+              className="text-4xl md:text-5xl lg:text-[3.5rem] font-bold text-white leading-tight mb-8 font-heading"
             >
               {t.about.h1}<br />
               <span className="text-gold-gradient">{t.about.h2}</span><br />

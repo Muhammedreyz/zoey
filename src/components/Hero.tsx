@@ -60,12 +60,11 @@ export default function Hero() {
         </div>
 
         <h1
-          className="transition-all duration-1000"
+          className="transition-all duration-1000 font-heading"
           style={{
             opacity: mounted ? 1 : 0,
             transform: mounted ? 'translateY(0)' : 'translateY(40px)',
             transitionDelay: '0.2s',
-            fontFamily: "'Playfair Display', Georgia, serif",
           }}
         >
           <span className="block text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-bold text-white/95 leading-[1.05]">
@@ -77,13 +76,11 @@ export default function Hero() {
         </h1>
 
         <p
-          className="transition-all duration-1000 text-white/45 text-lg sm:text-xl font-light mt-10 max-w-2xl mx-auto leading-relaxed"
+          className="transition-all duration-1000 text-white/45 text-xl font-light mt-10 max-w-2xl mx-auto leading-relaxed font-display"
           style={{
             opacity: mounted ? 1 : 0,
             transform: mounted ? 'translateY(0)' : 'translateY(30px)',
             transitionDelay: '0.5s',
-            fontFamily: "'Cormorant Garamond', Georgia, serif",
-            fontSize: '1.25rem',
           }}
         >
           {t.hero.sub}
@@ -106,7 +103,7 @@ export default function Hero() {
           </button>
           <button
             onClick={() => document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' })}
-            className="px-10 py-4 border border-white/15 text-white/60 text-sm font-light tracking-widest uppercase hover:border-brand-gold/50 hover:text-brand-gold transition-all duration-300"
+            className="px-10 py-4 border border-brand-gold/20 text-white/60 text-sm font-light tracking-widest uppercase hover:border-brand-gold/50 hover:text-brand-gold transition-all duration-300"
           >
             {t.hero.cta2}
           </button>

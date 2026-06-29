@@ -54,7 +54,7 @@ export default function Projects() {
             <span className="text-xs tracking-[0.4em] text-brand-gold/60 uppercase font-light">{t.projects.tag}</span>
           </div>
           <div className="grid lg:grid-cols-2 gap-8 items-end">
-            <h2 className="text-4xl md:text-5xl font-bold text-white leading-tight" style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
+            <h2 className="text-4xl md:text-5xl font-bold text-white leading-tight font-heading">
               {t.projects.h1}<br /><span className="text-gold-gradient">{t.projects.h2}</span>
             </h2>
             <p className="text-white/40 text-lg font-light leading-relaxed">{t.projects.sub}</p>
@@ -103,7 +103,7 @@ function ProjectCard({ project, index, visible }: { project: Project; index: num
         style={{ background: 'rgba(18,6,48,0.4)' }}
       >
         <div className="text-[10px] tracking-[0.2em] text-brand-gold/40 uppercase font-light mb-2">{project.subtitle}</div>
-        <h3 className="text-3xl md:text-4xl font-bold text-white mb-6 leading-tight" style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
+        <h3 className="text-3xl md:text-4xl font-bold text-white mb-6 leading-tight font-heading">
           {project.title}
         </h3>
         <div className="grid grid-cols-3 gap-4 mb-6 pb-6 border-b border-brand-gold/8">

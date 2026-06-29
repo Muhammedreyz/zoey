@@ -39,8 +39,7 @@ export default function Services() {
           </div>
           <div className="grid lg:grid-cols-2 gap-8 items-end">
             <h2
-              className="text-4xl md:text-5xl font-bold text-white leading-tight"
-              style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
+              className="text-4xl md:text-5xl font-bold text-white leading-tight font-heading"
             >
               {t.services.h1}<br />
               <span className="text-gold-gradient">{t.services.h2}</span>
