@@ -172,3 +172,22 @@ body {
   0%   { transform: translateX(0%); }
   100% { transform: translateX(-50%); }
 }
+
+/* ─── Splash spin slow ───────────────────── */
+.animate-spin-slow {
+  animation: spin 30s linear infinite;
+}
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* ─── Splash logo coloring ───────────────── */
+.splash-logo {
+  animation: splashGlow 2s ease-in-out 0.5s 1 normal both;
+}
+@keyframes splashGlow {
+  0%   { opacity: 0.4; filter: brightness(0.5) saturate(0); }
+  50%  { opacity: 1;   filter: brightness(1.2) saturate(1.2); }
+  100% { opacity: 1;   filter: brightness(1) saturate(1); }
+}

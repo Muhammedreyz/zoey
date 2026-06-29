@@ -1,20 +1,22 @@
 import { useEffect, useState } from 'react';
 import { Menu, X, Mail } from 'lucide-react';
+import { useLang, LANG_LABELS, LangCode } from '../hooks/useLang';
 
 interface NavProps {
   onShowComingSoon: () => void;
 }
 
-const NAV_LINKS = [
-  { label: 'Hakkımızda', href: '#about' },
-  { label: 'Hizmetler', href: '#services' },
-  { label: 'Projeler', href: '#projects' },
-  { label: 'İletişim', href: '#contact' },
-];
-
 export default function Navbar({ onShowComingSoon }: NavProps) {
+  const { lang, setLang, t } = useLang();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const NAV_LINKS = [
+    { label: t.nav.about, href: '#about' },
+    { label: t.nav.services, href: '#services' },
+    { label: t.nav.projects, href: '#projects' },
+    { label: t.nav.contact, href: '#contact' },
+  ];
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
@@ -37,7 +39,6 @@ export default function Navbar({ onShowComingSoon }: NavProps) {
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-          {/* Logo */}
           <button onClick={onShowComingSoon} className="focus:outline-none">
             <img
               src={scrolled ? '/all_in_gold.svg' : '/allinwhite.svg'}
@@ -46,32 +47,46 @@ export default function Navbar({ onShowComingSoon }: NavProps) {
             />
           </button>
 
-          {/* Desktop links */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden lg:flex items-center gap-8">
             {NAV_LINKS.map(link => (
               <button
                 key={link.href}
                 onClick={() => handleNav(link.href)}
-                className="text-sm tracking-widest text-white/60 hover:text-brand-gold transition-colors duration-300 uppercase font-light"
+                className="text-[13px] tracking-[0.15em] text-white/60 hover:text-brand-gold transition-colors duration-300 uppercase font-light"
               >
                 {link.label}
               </button>
             ))}
           </div>
 
-          {/* CTA */}
-          <div className="hidden md:flex items-center gap-3">
+          <div className="hidden lg:flex items-center gap-4">
+            {/* Language switcher */}
+            <div className="flex items-center gap-1 mr-3">
+              {(Object.keys(LANG_LABELS) as LangCode[]).map(code => (
+                <button
+                  key={code}
+                  onClick={() => setLang(code)}
+                  className={`px-2 py-1 text-[9px] tracking-widest font-cinzel transition-all duration-300 ${
+                    lang === code
+                      ? 'text-brand-gold border border-brand-gold/50 bg-brand-gold/10'
+                      : 'text-white/30 border border-transparent hover:text-white/50'
+                  }`}
+                >
+                  {LANG_LABELS[code]}
+                </button>
+              ))}
+            </div>
             <a
               href="mailto:info@zoey.com.tr"
               className="flex items-center gap-2 text-xs text-brand-gold/80 hover:text-brand-gold transition-colors duration-300 tracking-wide"
             >
+              <Mail size={12} />
               info@zoey.com.tr
             </a>
           </div>
 
-          {/* Mobile menu toggle */}
           <button
-            className="md:hidden text-white/70 hover:text-brand-gold transition-colors"
+            className="lg:hidden text-white/70 hover:text-brand-gold transition-colors"
             onClick={() => setMenuOpen(v => !v)}
           >
             {menuOpen ? <X size={22} /> : <Menu size={22} />}
@@ -101,7 +116,23 @@ export default function Navbar({ onShowComingSoon }: NavProps) {
               {link.label}
             </button>
           ))}
-          <div className="mt-8 flex flex-col items-center gap-3">
+          {/* Mobile language switcher */}
+          <div className="flex items-center gap-2 mt-6">
+            {(Object.keys(LANG_LABELS) as LangCode[]).map(code => (
+              <button
+                key={code}
+                onClick={() => setLang(code)}
+                className={`px-3 py-1.5 text-[10px] tracking-widest font-cinzel transition-all duration-300 ${
+                  lang === code
+                    ? 'text-brand-gold border border-brand-gold/50 bg-brand-gold/10'
+                    : 'text-white/30 border border-white/10 hover:text-white/50'
+                }`}
+              >
+                {LANG_LABELS[code]}
+              </button>
+            ))}
+          </div>
+          <div className="mt-4 flex flex-col items-center gap-3">
             <a href="mailto:info@zoey.com.tr" className="flex items-center gap-2 text-brand-gold text-sm">
               <Mail size={14} /> info@zoey.com.tr
             </a>

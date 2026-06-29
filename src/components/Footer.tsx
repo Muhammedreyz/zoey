@@ -1,75 +1,73 @@
 import { Mail } from 'lucide-react';
+import { useLang } from '../hooks/useLang';
 
 export default function Footer() {
+  const { t, isRtl } = useLang();
   const currentYear = new Date().getFullYear();
 
+  const navItems = [
+    { label: t.nav.about, id: 'about' },
+    { label: t.nav.services, id: 'services' },
+    { label: t.nav.projects, id: 'projects' },
+    { label: t.nav.contact, id: 'contact' },
+  ];
+
   return (
-    <footer className="bg-brand-dark-3 border-t border-brand-gold/15">
-      {/* Main footer */}
+    <footer className="border-t border-brand-gold/10" dir={isRtl ? 'rtl' : 'ltr'}
+      style={{ background: 'linear-gradient(180deg, #0E0327 0%, #080118 100%)' }}
+    >
       <div className="max-w-7xl mx-auto px-6 py-16">
         <div className="grid md:grid-cols-3 gap-12 items-start">
-
-          {/* Logo & tagline */}
           <div className="md:col-span-1">
-            <img
-              src="/all_in_gold.svg"
-              alt="Zoey İnşaat"
-              className="h-12 w-auto mb-4"
-            />
-            <p className="text-white/35 text-sm font-light leading-relaxed mt-4">
-              Hayalleri kalıcı eserlere dönüştürüyor,<br />
-              geleceği birlikte inşa ediyoruz.
+            <img src="/all_in_gold.svg" alt="Zoey İnşaat" className="h-11 w-auto mb-5" />
+            <p className="text-white/30 text-sm font-light leading-relaxed mt-4 whitespace-pre-line">
+              {t.footer.tagline}
             </p>
           </div>
 
-          {/* Navigation */}
           <div>
-            <h4 className="text-xs tracking-[0.3em] text-brand-gold/60 uppercase font-light mb-5">
-              Hızlı Bağlantılar
+            <h4 className="text-[10px] tracking-[0.3em] text-brand-gold/50 uppercase font-light mb-5">
+              {t.footer.links}
             </h4>
             <nav className="space-y-3">
-              {['Hakkımızda', 'Hizmetler', 'Projeler', 'İletişim'].map(item => (
+              {navItems.map(item => (
                 <button
-                  key={item}
-                  onClick={() => document.querySelector(`#${item === 'Hakkımızda' ? 'about' : item === 'Hizmetler' ? 'services' : item === 'Projeler' ? 'projects' : 'contact'}`)?.scrollIntoView({ behavior: 'smooth' })}
-                  className="block text-white/40 hover:text-brand-gold transition-colors duration-300 text-sm font-light tracking-wide"
+                  key={item.id}
+                  onClick={() => document.querySelector(`#${item.id}`)?.scrollIntoView({ behavior: 'smooth' })}
+                  className="block text-white/35 hover:text-brand-gold transition-colors duration-300 text-sm font-light tracking-wide"
                 >
-                  {item}
+                  {item.label}
                 </button>
               ))}
             </nav>
           </div>
 
-          {/* Contact */}
           <div>
-            <h4 className="text-xs tracking-[0.3em] text-brand-gold/60 uppercase font-light mb-5">
-              İletişim
+            <h4 className="text-[10px] tracking-[0.3em] text-brand-gold/50 uppercase font-light mb-5">
+              {t.footer.contact}
             </h4>
-            <div className="space-y-3">
-              <a
-                href="mailto:info@zoey.com.tr"
-                className="flex items-center gap-3 text-white/40 hover:text-brand-gold transition-colors duration-300 text-sm font-light"
-              >
-                <Mail size={13} className="text-brand-gold/60 flex-shrink-0" />
-                info@zoey.com.tr
-              </a>
-            </div>
+            <a
+              href="mailto:info@zoey.com.tr"
+              className="flex items-center gap-3 text-white/35 hover:text-brand-gold transition-colors duration-300 text-sm font-light"
+            >
+              <Mail size={13} className="text-brand-gold/50 flex-shrink-0" />
+              info@zoey.com.tr
+            </a>
           </div>
         </div>
       </div>
 
-      {/* Bottom bar */}
-      <div className="border-t border-brand-gold/10">
+      <div className="border-t border-brand-gold/8">
         <div className="max-w-7xl mx-auto px-6 py-5 flex flex-col md:flex-row items-center justify-between gap-3">
-          <p className="text-white/25 text-xs font-light tracking-wide">
-            &copy; {currentYear} Zoey İnşaat & Müteahhitlik. Tüm hakları saklıdır.
+          <p className="text-white/20 text-xs font-light tracking-wide">
+            &copy; {currentYear} {t.footer.copy}
           </p>
           <div className="flex items-center gap-2">
-            <span className="w-4 h-px bg-brand-gold/30" />
-            <span className="text-brand-gold/30 text-xs font-light tracking-widest uppercase">
-              Zoey İnşaat
+            <span className="w-6 h-px bg-brand-gold/20" />
+            <span className="text-brand-gold/25 text-[10px] font-light tracking-[0.3em] uppercase font-cinzel">
+              Zoey
             </span>
-            <span className="w-4 h-px bg-brand-gold/30" />
+            <span className="w-6 h-px bg-brand-gold/20" />
           </div>
         </div>
       </div>
