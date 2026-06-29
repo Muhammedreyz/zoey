@@ -12,7 +12,7 @@ export default function Footer() {
           {/* Logo & tagline */}
           <div className="md:col-span-1">
             <img
-              src="/renkli_yazi.svg"
+              src="/all_in_gold.svg"
               alt="Zoey İnşaat"
               className="h-12 w-auto mb-4"
             />
