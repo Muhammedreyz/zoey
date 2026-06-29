@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Menu, X, Phone, Mail } from 'lucide-react';
+import { Menu, X, Mail } from 'lucide-react';
 
 interface NavProps {
   onShowComingSoon: () => void;
@@ -62,11 +62,10 @@ export default function Navbar({ onShowComingSoon }: NavProps) {
           {/* CTA */}
           <div className="hidden md:flex items-center gap-3">
             <a
-              href="tel:+905306374169"
+              href="mailto:info@zoey.com.tr"
               className="flex items-center gap-2 text-xs text-brand-gold/80 hover:text-brand-gold transition-colors duration-300 tracking-wide"
             >
-              <Phone size={12} />
-              +90 530 637 41 69
+              info@zoey.com.tr
             </a>
           </div>
 
@@ -103,9 +102,6 @@ export default function Navbar({ onShowComingSoon }: NavProps) {
             </button>
           ))}
           <div className="mt-8 flex flex-col items-center gap-3">
-            <a href="tel:+905306374169" className="flex items-center gap-2 text-brand-gold text-sm">
-              <Phone size={14} /> +90 530 637 41 69
-            </a>
             <a href="mailto:info@zoey.com.tr" className="flex items-center gap-2 text-brand-gold text-sm">
               <Mail size={14} /> info@zoey.com.tr
             </a>

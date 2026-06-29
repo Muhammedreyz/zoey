@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Phone, Mail } from 'lucide-react';
+import { Mail } from 'lucide-react';
 
 type LangCode = 'tr' | 'de' | 'en' | 'ru' | 'ar';
 
@@ -319,8 +319,6 @@ export default function ComingSoon() {
             transition: 'opacity 0.8s ease, transform 0.8s ease',
           }}
         >
-          <ContactItem icon={<Phone size={12} />} href="tel:+905306374169" label="+90 530 637 41 69" />
-          <div className="hidden sm:block w-px h-6 bg-white/10" />
           <ContactItem icon={<Mail size={12} />} href="mailto:info@zoey.com.tr" label="info@zoey.com.tr" />
         </div>
       </div>

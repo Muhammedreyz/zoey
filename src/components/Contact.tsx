@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useReveal } from '../hooks/useReveal';
-import { Phone, Mail, MapPin, Send, CheckCircle } from 'lucide-react';
+import { Mail, MapPin, Send, CheckCircle } from 'lucide-react';
 
 export default function Contact() {
   const { ref, visible } = useReveal();
@@ -58,19 +58,6 @@ export default function Contact() {
 
             {/* Contact details */}
             <div className="space-y-6">
-              <a
-                href="tel:+905306374169"
-                className="group flex items-start gap-5 hover:opacity-80 transition-opacity duration-300"
-              >
-                <div className="w-12 h-12 border border-brand-gold/30 flex items-center justify-center flex-shrink-0 group-hover:border-brand-gold transition-colors duration-300 group-hover:bg-brand-gold/10">
-                  <Phone size={18} className="text-brand-gold" />
-                </div>
-                <div>
-                  <div className="text-xs tracking-widest text-brand-gold/50 uppercase font-light mb-1">Telefon</div>
-                  <div className="text-white text-lg tracking-wide">+90 530 637 41 69</div>
-                </div>
-              </a>
-
               <a
                 href="mailto:info@zoey.com.tr"
                 className="group flex items-start gap-5 hover:opacity-80 transition-opacity duration-300"

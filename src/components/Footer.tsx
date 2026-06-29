@@ -1,4 +1,4 @@
-import { Phone, Mail } from 'lucide-react';
+import { Mail } from 'lucide-react';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -46,13 +46,6 @@ export default function Footer() {
               İletişim
             </h4>
             <div className="space-y-3">
-              <a
-                href="tel:+905306374169"
-                className="flex items-center gap-3 text-white/40 hover:text-brand-gold transition-colors duration-300 text-sm font-light"
-              >
-                <Phone size={13} className="text-brand-gold/60 flex-shrink-0" />
-                +90 530 637 41 69
-              </a>
               <a
                 href="mailto:info@zoey.com.tr"
                 className="flex items-center gap-3 text-white/40 hover:text-brand-gold transition-colors duration-300 text-sm font-light"
